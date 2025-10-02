@@ -1,9 +1,9 @@
 import Floor from './Floor'
-import Cabin from './Cabin'
+import Car from './Car'
 import Shaft from './Shaft'
 import '../css/Building.css'
 
-export default function Building({ floors, cabinPosition }) {
+export default function Building({ floors, carPosition }) {
   const height = 400;
   const floorHeight = height / floors;
 
@@ -13,7 +13,7 @@ export default function Building({ floors, cabinPosition }) {
         <Floor key={i} position={i * floorHeight} />
       ))}
       <Shaft>
-        <Cabin position={cabinPosition * floorHeight} />
+        <Car position={carPosition * floorHeight} />
       </Shaft>
     </div>
   );
