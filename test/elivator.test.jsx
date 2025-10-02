@@ -1,14 +1,23 @@
-import { render } from '@testing-library/react'
-import { beforeEach, expect, test } from 'vitest'
-import Building from '../src/components/Building'
+import { afterAll, beforeAll, expect, test } from 'vitest'
+import puppeteer from 'puppeteer'
+import { toMatchImageSnapshot } from 'jest-image-snapshot'
 
-let sut
+expect.extend({ toMatchImageSnapshot })
 
-beforeEach(() => {
-  const { container } = render(<Building floors={4} carPosition={0} />)
-  sut = container.firstChild
+let browser
+let page
+
+beforeAll(async () => {
+  browser = await puppeteer.launch({ headless: true })
+  page = await browser.newPage()
+  await page.goto('http://localhost:5173')
 })
 
-test('its in the lobby', () => {
-  expect(sut).toMatchSnapshot("lobby")
+afterAll(async () => {
+  await browser.close()
+})
+
+test('its in the lobby', async () => {
+  const screenshot = await page.screenshot()
+  expect(screenshot).toMatchImageSnapshot({ customSnapshotIdentifier: 'lobby' })
 })
