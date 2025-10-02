@@ -24,10 +24,9 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background: linear-gradient(to bottom, #87CEEB 0%, #87CEEB 80%, #5a8f3a 80%, #5a8f3a 100%);
 }
 
 h1 {

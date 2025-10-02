@@ -2,5 +2,8 @@
   width: 200px;
   height: 400px;
   background: #ccc;
-  position: relative;
+  position: absolute;
+  bottom: 20vh;
+  left: 50%;
+  transform: translateX(-50%);
 }
