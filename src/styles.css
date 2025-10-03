@@ -24,6 +24,16 @@
   box-sizing: border-box;
 }
 
+.car-door-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #000;
+  transform: translateX(-50%);
+}
+
 .shaft {
   position: absolute;
   left: 80px;
