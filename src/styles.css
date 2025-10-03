@@ -34,6 +34,22 @@
   transform: translateX(-50%);
 }
 
+.car-door-left {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #000;
+}
+
+.car-door-right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #000;
+}
+
 .shaft {
   position: absolute;
   left: 80px;

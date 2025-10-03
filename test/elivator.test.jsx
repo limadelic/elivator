@@ -24,4 +24,8 @@ describe('elivator', () => {
   test('its in the lobby', async () => {
     await verify(sut, 'lobby')
   })
+
+  test('open doors', async () => {
+    await verify(sut, 'open-doors')
+  })
 })
