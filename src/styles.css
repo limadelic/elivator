@@ -85,6 +85,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .shaft-label {
@@ -93,11 +94,6 @@
   font-size: 16px;
   font-weight: bold;
   z-index: 0;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  font-family: inherit;
 }
 
 .left-button {

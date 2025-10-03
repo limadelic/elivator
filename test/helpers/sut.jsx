@@ -12,6 +12,7 @@ async function press(container, testid) {
 async function fww(seconds) {
   await act(async () => {
     await vi.advanceTimersByTimeAsync(seconds * 1000)
+    await vi.advanceTimersByTimeAsync(100)
   })
 }
 

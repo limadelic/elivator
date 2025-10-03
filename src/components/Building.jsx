@@ -14,6 +14,7 @@ export default function Building({floors}) {
   const [doorsOpen, setDoorsOpen] = useState(false)
   const [selectedFloor, setSelectedFloor] = useState(null)
   const [currentFloor, setCurrentFloor] = useState(0)
+  const [position, setPosition] = useState(0)
   const height = 400
   const floorHeight = height / floors
   const label = (i) => i === 0 ? 'L' : i === floors - 1 ? 'PH' : i
@@ -27,18 +28,41 @@ export default function Building({floors}) {
   }, [doorsOpen, selectedFloor])
 
   useEffect(() => {
+    if (selectedFloor === null) {
+      setPosition(currentFloor)
+    }
+  }, [currentFloor, selectedFloor])
+
+  useEffect(() => {
     if (selectedFloor !== null && selectedFloor !== currentFloor) {
+      let animationId
       const closeTimer = setTimeout(() => {
         setDoorsOpen(false)
         const distance = Math.abs(selectedFloor - currentFloor)
-        const travelTimer = setTimeout(() => {
-          setCurrentFloor(selectedFloor)
-          setDoorsOpen(true)
-          setSelectedFloor(null)
-        }, distance * FLOOR_TRAVEL * 1000)
-        return () => clearTimeout(travelTimer)
+        const startTime = Date.now()
+        const startPos = currentFloor
+        const direction = selectedFloor > currentFloor ? 1 : -1
+
+        const animate = () => {
+          const elapsed = (Date.now() - startTime) / 1000
+          const progress = Math.min(elapsed / (distance * FLOOR_TRAVEL), 1)
+          setPosition(startPos + progress * distance * direction)
+
+          if (progress < 1) {
+            animationId = requestAnimationFrame(animate)
+          } else {
+            setCurrentFloor(selectedFloor)
+            setDoorsOpen(true)
+            setSelectedFloor(null)
+          }
+        }
+
+        animationId = requestAnimationFrame(animate)
       }, DOOR_CLOSE * 1000)
-      return () => clearTimeout(closeTimer)
+      return () => {
+        clearTimeout(closeTimer)
+        if (animationId) cancelAnimationFrame(animationId)
+      }
     }
   }, [selectedFloor, currentFloor])
 
@@ -68,9 +92,7 @@ export default function Building({floors}) {
             onMouseLeave={() => setHoverShaft(null)}
             onClick={openDoors}
             onFloorSelect={() => setSelectedFloor(i)}
-          >
-            {i === currentFloor && <Car doorsOpen={doorsOpen} />}
-          </Shaft>
+          />
           {isLobby(i) ? (
             <Up floor={i} side="right" onClick={() => {}} highlighted={hoverDown === i} />
           ) : (
@@ -84,6 +106,16 @@ export default function Building({floors}) {
           />
         </Floor>
       ))}
+      <div style={{
+        position: 'absolute',
+        left: '80px',
+        width: '40px',
+        height: floorHeight,
+        bottom: position * floorHeight,
+        transition: 'none'
+      }}>
+        <Car doorsOpen={doorsOpen} />
+      </div>
     </div>
   )
 }

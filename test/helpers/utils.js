@@ -4,7 +4,7 @@ import { vi } from 'vitest'
 export function setupTimers() {
   return {
     beforeEach: () => {
-      vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout'] })
+      vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout', 'requestAnimationFrame', 'cancelAnimationFrame', 'Date'] })
     },
     afterEach: () => {
       vi.useRealTimers()
