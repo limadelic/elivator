@@ -16,7 +16,7 @@ export default function Building({floors}) {
   const [currentFloor, setCurrentFloor] = useState(0)
   const height = 400
   const floorHeight = height / floors
-  const label = (i) => i === 0 ? 'L' : i
+  const label = (i) => i === 0 ? 'L' : i === floors - 1 ? 'PH' : i
   const openDoors = () => setDoorsOpen(true)
 
   useEffect(() => {
