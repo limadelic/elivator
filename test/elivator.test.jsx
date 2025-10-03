@@ -1,17 +1,13 @@
-import { render, act } from '@testing-library/react'
-import { afterAll, beforeAll, beforeEach, describe, test } from 'vitest'
-import { start, stop, verify } from './approval'
+import { afterAll, afterEach, beforeAll, beforeEach, describe, test } from 'vitest'
+import { start, stop } from './helpers/approval'
+import { setupTimers } from './helpers/utils'
+import { Sut } from './helpers/sut'
 import Building from '../src/components/Building'
+import { DOOR_CLOSE } from '../src/constants'
 
 describe('elivator', () => {
   let sut
-
-  async function press(testid) {
-    const button = sut.querySelector(`[data-testid="${testid}"]`)
-    await act(async () => {
-      button.click()
-    })
-  }
+  const timers = setupTimers()
 
   beforeAll(async () => {
     await start()
@@ -22,19 +18,19 @@ describe('elivator', () => {
   })
 
   beforeEach(async () => {
-    await act(async () => {
-      const { container } = render(<Building floors={4} carPosition={0} />)
-      sut = container
-    })
+    timers.beforeEach()
+    sut = await Sut(Building, { floors: 4 })
   })
 
-  test('its in the lobby', async () => {
-    await verify(sut, 'lobby')
+  afterEach(() => {
+    timers.afterEach()
   })
 
-  test('open doors', async () => {
-    await verify(sut, 'lobby')
-    await press('LUP')
-    await verify(sut, 'open-doors')
+  test('pick me in lobby', async () => {
+    await sut.verify('lobby-closed')
+    await sut.press('LUP')
+    await sut.verify('lobby-open')
+    await sut.wait(DOOR_CLOSE)
+    await sut.verify('lobby-closed')
   })
 })

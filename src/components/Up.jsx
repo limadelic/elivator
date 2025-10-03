@@ -1,8 +1,9 @@
-export default function Up({ floor, onClick, highlighted }) {
+export default function Up({ floor, side, onClick, highlighted }) {
+  const label = floor === 0 ? 'L' : floor
   return (
     <button
-      className="call-button"
-      data-testid="UP"
+      className={`${side}-button`}
+      data-testid={`${label}UP`}
       onClick={onClick}
       style={{color: highlighted ? '#ff4500' : '#333'}}
     >

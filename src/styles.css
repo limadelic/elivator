@@ -95,7 +95,7 @@
   z-index: 0;
 }
 
-.call-button {
+.left-button {
   position: absolute;
   left: 40px;
   top: 50%;
@@ -108,17 +108,18 @@
   line-height: 1;
   outline: none;
   color: #333;
+  z-index: 3;
 }
 
-.call-button:focus {
+.left-button:focus {
   outline: none;
 }
 
-.call-button:active {
+.left-button:active {
   transform: translate(-50%, -50%) scale(0.95);
 }
 
-.down-button {
+.right-button {
   position: absolute;
   right: 40px;
   top: 50%;
@@ -131,12 +132,13 @@
   line-height: 1;
   outline: none;
   color: #333;
+  z-index: 3;
 }
 
-.down-button:focus {
+.right-button:focus {
   outline: none;
 }
 
-.down-button:active {
+.right-button:active {
   transform: translate(50%, -50%) scale(0.95);
 }

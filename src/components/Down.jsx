@@ -1,8 +1,9 @@
-export default function Down({ floor, onClick, highlighted }) {
+export default function Down({ floor, side, onClick, highlighted }) {
+  const label = floor === 0 ? 'L' : floor
   return (
     <button
-      className="down-button"
-      data-testid="DOWN"
+      className={`${side}-button`}
+      data-testid={`${label}DOWN`}
       onClick={onClick}
       style={{color: highlighted ? '#ff4500' : '#333'}}
     >
