@@ -6,6 +6,13 @@ import Building from '../src/components/Building'
 describe('elivator', () => {
   let sut
 
+  async function press(testid) {
+    const button = sut.querySelector(`[data-testid="${testid}"]`)
+    await act(async () => {
+      button.click()
+    })
+  }
+
   beforeAll(async () => {
     await start()
   })
@@ -26,6 +33,8 @@ describe('elivator', () => {
   })
 
   test('open doors', async () => {
+    await verify(sut, 'lobby')
+    await press('UP')
     await verify(sut, 'open-doors')
   })
 })
