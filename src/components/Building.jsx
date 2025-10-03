@@ -90,7 +90,6 @@ export default function Building({floors}) {
             selected={i === selectedFloor}
             onMouseEnter={() => setHoverShaft(i)}
             onMouseLeave={() => setHoverShaft(null)}
-            onClick={openDoors}
             onFloorSelect={() => setSelectedFloor(i)}
           />
           {isLobby(i) ? (
@@ -106,14 +105,7 @@ export default function Building({floors}) {
           />
         </Floor>
       ))}
-      <div style={{
-        position: 'absolute',
-        left: '80px',
-        width: '40px',
-        height: floorHeight,
-        bottom: position * floorHeight,
-        transition: 'none'
-      }}>
+      <div className="car-container" style={{height: floorHeight, bottom: position * floorHeight}}>
         <Car doorsOpen={doorsOpen} />
       </div>
     </div>
