@@ -1,12 +1,12 @@
-export default function Up({ floor, onClick, highlighted }) {
+export default function Down({ floor, onClick, highlighted }) {
   return (
     <button
-      className="call-button"
-      data-testid="UP"
+      className="down-button"
+      data-testid="DOWN"
       onClick={onClick}
       style={{color: highlighted ? '#ff4500' : '#333'}}
     >
-      ▲
+      ▼
     </button>
   )
 }

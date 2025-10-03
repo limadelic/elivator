@@ -1,7 +1,6 @@
-export default function Car({ position, doorsOpen }) {
+export default function Car({ doorsOpen }) {
   return (
     <div className="car" style={{
-      bottom: position,
       background: doorsOpen ? 'yellow' : '#555'
     }}>
       {doorsOpen ? (

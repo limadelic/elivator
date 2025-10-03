@@ -1,27 +1,52 @@
 .building {
   width: 200px;
   height: 400px;
-  background: #ccc;
   position: absolute;
   bottom: 20vh;
   left: 50%;
   transform: translateX(-50%);
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 .floor {
-  position: absolute;
+  position: relative;
   width: 100%;
-  height: 1px;
-  background: #666;
+  background: #ccc;
+  border: 1px solid #000;
+  box-sizing: border-box;
+}
+
+.left-wall {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 80px;
+  height: 100%;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.right-wall {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 80px;
+  height: 100%;
+  cursor: pointer;
+  z-index: 2;
 }
 
 .car {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 80px;
+  height: 100%;
   background: #555;
   border: 2px solid #000;
   box-sizing: border-box;
+  z-index: 1;
 }
 
 .car-door-line {
@@ -53,15 +78,28 @@
 .shaft {
   position: absolute;
   left: 80px;
+  top: 0;
   width: 40px;
   height: 100%;
   background: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shaft-label {
+  position: relative;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  z-index: 0;
 }
 
 .call-button {
   position: absolute;
-  left: 30px;
-  bottom: 30px;
+  left: 40px;
+  top: 50%;
+  transform: translate(-50%, -50%);
   padding: 0;
   background: transparent;
   border: none;
@@ -69,6 +107,7 @@
   font-size: 20px;
   line-height: 1;
   outline: none;
+  color: #333;
 }
 
 .call-button:focus {
@@ -76,5 +115,28 @@
 }
 
 .call-button:active {
-  transform: scale(0.95);
+  transform: translate(-50%, -50%) scale(0.95);
+}
+
+.down-button {
+  position: absolute;
+  right: 40px;
+  top: 50%;
+  transform: translate(50%, -50%);
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  outline: none;
+  color: #333;
+}
+
+.down-button:focus {
+  outline: none;
+}
+
+.down-button:active {
+  transform: translate(50%, -50%) scale(0.95);
 }

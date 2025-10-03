@@ -1,5 +1,6 @@
-import { Building } from './components'
+import Building from './components/Building'
+import './styles.css'
 
 export default function App() {
-  return <Building floors={4} carPosition={0} />
+  return <Building floors={4} />
 }

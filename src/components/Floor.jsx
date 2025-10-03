@@ -1,3 +1,7 @@
-export default function Floor({ position }) {
-  return <div className="floor" style={{ bottom: position }} />
+export default function Floor({ number, height, children }) {
+  return (
+    <div className="floor" style={{ height }}>
+      {children}
+    </div>
+  )
 }
