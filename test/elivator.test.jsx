@@ -34,7 +34,7 @@ describe('elivator', () => {
 
   test('open doors', async () => {
     await verify(sut, 'lobby')
-    await press('UP')
+    await press('LUP')
     await verify(sut, 'open-doors')
   })
 })

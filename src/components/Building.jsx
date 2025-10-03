@@ -30,7 +30,7 @@ export default function Building({floors}) {
             onMouseEnter={() => setHoverShaft(i)}
             onMouseLeave={() => setHoverShaft(null)}
           >
-            {i === 0 && <Car doorsOpen={false} />}
+            {i === 0 && <Car doorsOpen={true} />}
           </Shaft>
           <div
             className="right-wall"
