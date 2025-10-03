@@ -5,24 +5,42 @@ import Up from './Up'
 import Down from './Down'
 import Car from './Car'
 import Wall from './Wall'
-import { DOOR_CLOSE } from '../constants'
+import { DOOR_CLOSE, FLOOR_TRAVEL } from '../constants'
 
 export default function Building({floors}) {
   const [hoverUp, setHoverUp] = useState(null)
   const [hoverDown, setHoverDown] = useState(null)
   const [hoverShaft, setHoverShaft] = useState(null)
   const [doorsOpen, setDoorsOpen] = useState(false)
+  const [selectedFloor, setSelectedFloor] = useState(null)
+  const [currentFloor, setCurrentFloor] = useState(0)
   const height = 400
   const floorHeight = height / floors
   const label = (i) => i === 0 ? 'L' : i
   const openDoors = () => setDoorsOpen(true)
 
   useEffect(() => {
-    if (doorsOpen) {
+    if (doorsOpen && !selectedFloor) {
       const timer = setTimeout(() => setDoorsOpen(false), DOOR_CLOSE * 1000)
       return () => clearTimeout(timer)
     }
-  }, [doorsOpen])
+  }, [doorsOpen, selectedFloor])
+
+  useEffect(() => {
+    if (selectedFloor !== null && selectedFloor !== currentFloor) {
+      const closeTimer = setTimeout(() => {
+        setDoorsOpen(false)
+        const distance = Math.abs(selectedFloor - currentFloor)
+        const travelTimer = setTimeout(() => {
+          setCurrentFloor(selectedFloor)
+          setDoorsOpen(true)
+          setSelectedFloor(null)
+        }, distance * FLOOR_TRAVEL * 1000)
+        return () => clearTimeout(travelTimer)
+      }, DOOR_CLOSE * 1000)
+      return () => clearTimeout(closeTimer)
+    }
+  }, [selectedFloor, currentFloor])
 
   const isTop = (i) => i === floors - 1
   const isLobby = (i) => i === 0
@@ -45,11 +63,13 @@ export default function Building({floors}) {
           <Shaft
             label={label(i)}
             highlighted={hoverShaft === i}
+            selected={i === selectedFloor}
             onMouseEnter={() => setHoverShaft(i)}
             onMouseLeave={() => setHoverShaft(null)}
             onClick={openDoors}
+            onFloorSelect={() => setSelectedFloor(i)}
           >
-            {isLobby(i) && <Car doorsOpen={doorsOpen} />}
+            {i === currentFloor && <Car doorsOpen={doorsOpen} />}
           </Shaft>
           {isLobby(i) ? (
             <Up floor={i} side="right" onClick={() => {}} highlighted={hoverDown === i} />

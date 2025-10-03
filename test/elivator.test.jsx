@@ -3,7 +3,7 @@ import { start, stop } from './helpers/approval'
 import { setupTimers } from './helpers/utils'
 import { Sut } from './helpers/sut'
 import Building from '../src/components/Building'
-import { DOOR_CLOSE } from '../src/constants'
+import { DOOR_CLOSE, FLOOR_TRAVEL } from '../src/constants'
 
 describe('elivator', () => {
   let sut
@@ -26,11 +26,15 @@ describe('elivator', () => {
     timers.afterEach()
   })
 
-  test('pick me in lobby', async () => {
-    await sut.verify('lobby-closed')
+  test('from lobby to penthouse', async () => {
+    await sut.verify('at-lobby-closed')
     await sut.press('LUP')
-    await sut.verify('lobby-open')
+    await sut.verify('at-lobby-open')
+    await sut.press('3')
+    await sut.verify('at-lobby-open-3-selected')
+    await sut.wait(DOOR_CLOSE + FLOOR_TRAVEL * 3)
+    await sut.verify('at-floor-3-open')
     await sut.wait(DOOR_CLOSE)
-    await sut.verify('lobby-closed')
+    await sut.verify('at-floor-3-closed')
   })
 })
