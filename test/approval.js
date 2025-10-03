@@ -23,10 +23,7 @@ export async function verify(sut, name) {
     <html>
       <head>
         <link rel="stylesheet" href="http://localhost:5173/src/index.css">
-        <link rel="stylesheet" href="http://localhost:5173/src/css/Building.css">
-        <link rel="stylesheet" href="http://localhost:5173/src/css/Floor.css">
-        <link rel="stylesheet" href="http://localhost:5173/src/css/Car.css">
-        <link rel="stylesheet" href="http://localhost:5173/src/css/Shaft.css">
+        <link rel="stylesheet" href="http://localhost:5173/src/styles.css">
       </head>
       <body>${html}</body>
     </html>
